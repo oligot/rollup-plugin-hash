@@ -123,6 +123,14 @@ describe('rollup-plugin-hash', () => {
 		});
 	});
 
+	it('should replace original bundle and sourcemap with hashed version if configured', () => {
+		const res = hashWithOptions({ dest: 'tmp/[hash].js', replace: true }, { sourcemap: true });
+		return res.then(() => {
+			const tmp = fs.readdirSync('tmp');
+			expect(tmp).to.have.length(2);
+		});
+	});
+
 	it('should replace dest filename template with sub-string of bundle hash', () => {
 		const res = hashWithOptions({ dest: 'tmp/[hash:4].js' });
 		return res.then(() => {

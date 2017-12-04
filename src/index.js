@@ -108,6 +108,9 @@ export default function hash(opts = {}) {
 				if (bundle.sourcemap === 'inline') {
 					url = data.map.toUrl();
 				} else {
+					if (options.replace) {
+						fs.unlinkSync(builtFile + '.map');
+					}
 					url = basename + '.map';
 					fs.writeFileSync(fileName + '.map', data.map.toString());
 				}
